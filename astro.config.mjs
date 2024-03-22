@@ -8,5 +8,12 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   output: 'server',
   integrations: [tailwind(), vue()],
-  adapter: cloudflare()
+  adapter: cloudflare({
+    mode: 'directory',
+    routes: {
+      strategy: 'include',
+      include: ["/api/*"],
+      exclude: []
+    }
+  })
 });
