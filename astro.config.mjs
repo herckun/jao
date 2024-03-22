@@ -11,9 +11,9 @@ export default defineConfig({
   adapter: cloudflare({
     mode: 'directory',
     routes: {
-      strategy: 'include',
+      strategy: 'exclude',
       include: ["/api/*"],
-      exclude: ["/build/*"]
+      exclude: ["/api/portfolio/*"]
     }
   })
 });
