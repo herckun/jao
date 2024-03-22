@@ -209,6 +209,7 @@ async function fetchData($connected: any) {
     success.value = false;
   } finally {
     pending.value = false;
+    msg.value = "...";
   }
 }
 
