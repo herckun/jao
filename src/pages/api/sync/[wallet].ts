@@ -30,7 +30,7 @@ export const GET: APIRoute = async ({ params, request }) => {
 
   const tokens = await db.select().from(Token);
   let rh = null;
-  let i = 0;
+  let counter = 0;
   for (let i = 0; i < tokens.length; i++) {
     if (rh == null || tokens[i].chainId != rh.rpc.chainId) {
       switch (tokens[i].chainId) {
@@ -73,7 +73,7 @@ export const GET: APIRoute = async ({ params, request }) => {
     if (balance < 0.00001) {
       continue;
     }
-    i++;
+    counter++;
     let balanceString = (
       balance * Math.pow(10, token.decimals as number)
     ).toLocaleString("fullwide", {
@@ -91,7 +91,7 @@ export const GET: APIRoute = async ({ params, request }) => {
   return new Response(
     JSON.stringify({
       msg: "Balances have been synced with blockchain data",
-      count: i,
+      count: counter,
       timestamp: new Date().getTime(),
     }),
     {
