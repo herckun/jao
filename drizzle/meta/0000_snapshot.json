@@ -1,0 +1,258 @@
+{
+  "id": "274e3312-dd9d-4709-9047-f2bac2f462dc",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "accounts": {
+      "name": "accounts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "wallet": {
+          "name": "wallet",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "accounts_wallet_unique": {
+          "name": "accounts_wallet_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "wallet"
+          ]
+        }
+      }
+    },
+    "balances": {
+      "name": "balances",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "balance": {
+          "name": "balance",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "account_wallet": {
+          "name": "account_wallet",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "token_contract": {
+          "name": "token_contract",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "balances_account_wallet_accounts_wallet_fk": {
+          "name": "balances_account_wallet_accounts_wallet_fk",
+          "tableFrom": "balances",
+          "tableTo": "accounts",
+          "columnsFrom": [
+            "account_wallet"
+          ],
+          "columnsTo": [
+            "wallet"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "balances_token_contract_tokens_contract_fk": {
+          "name": "balances_token_contract_tokens_contract_fk",
+          "tableFrom": "balances",
+          "tableTo": "tokens",
+          "columnsFrom": [
+            "token_contract"
+          ],
+          "columnsTo": [
+            "contract"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "chains": {
+      "name": "chains",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "chain_id": {
+          "name": "chain_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "default": 1
+        },
+        "native_symbol": {
+          "name": "native_symbol",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "icon_uri": {
+          "name": "icon_uri",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "chains_chain_id_unique": {
+          "name": "chains_chain_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "chain_id"
+          ]
+        }
+      }
+    },
+    "tokens": {
+      "name": "tokens",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "chain_id": {
+          "name": "chain_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
+        },
+        "contract": {
+          "name": "contract",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "decimals": {
+          "name": "decimals",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "coingecko_id": {
+          "name": "coingecko_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "icon_uri": {
+          "name": "icon_uri",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "tokens_contract_unique": {
+          "name": "tokens_contract_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "contract"
+          ]
+        }
+      }
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

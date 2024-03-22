@@ -1,0 +1,30 @@
+[
+   {
+    "name": "ETH",
+    "chainId": 10,
+    "contract": "ETH(OP)",
+    "decimals": 18,
+    "coingeckoId":"ethereum"
+  },
+  {
+   "name": "OP",
+   "chainId": 10,
+   "contract": "0x4200000000000000000000000000000000000042",
+   "decimals":18,
+   "coingeckoId":"optimism"
+  },
+  {
+   "name": "USDC.e",
+   "chainId": 10,
+   "contract" : "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
+   "decimals":18,
+   "coingeckoId":"usd-coin"
+  },
+  {
+    "name" : "COLLAB",
+    "chainId":10,
+    "contract":"0x8b21e9b7daf2c4325bf3d18c1beb79a347fe902a",
+    "decimals":18,
+    "coingeckoId":"collab-land"
+  }
+]

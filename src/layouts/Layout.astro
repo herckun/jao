@@ -1,0 +1,51 @@
+---
+import "@fontsource/ubuntu";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div
+      data-theme="froggycandle"
+      class="min-h-screen bg-affair-950 flex flex-col place-content-center place-items-center gap-2"
+    >
+      <div class="navbar w-fit mx-auto flex flex-col gap-1 my-2">
+        <a class="btn btn-primary text-xl rounded-full">jao.</a>
+      </div>
+      <slot />
+      <footer class="footer footer-center p-10 bg-affair-950 rounded">
+        <aside>
+          <p class="text-neutral-content">
+            Price data provided by
+            <a
+              href="https://www.coingecko.com"
+              target="_blank"
+              class="text-affair-400 font-semibold">CoinGecko</a
+            >
+          </p>
+        </aside>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  html,
+  * {
+    font-family: "Ubuntu", system-ui;
+  }
+</style>

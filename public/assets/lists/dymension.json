@@ -1,0 +1,9 @@
+[
+    {
+      "name": "DYM",
+      "chainId": 1100,
+      "contract": "DYM",
+      "decimals": 18,
+      "coingeckoId":"dymension"
+    }
+]

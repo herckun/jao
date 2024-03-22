@@ -1,0 +1,10 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Overview from "../components/Overview.vue";
+
+export const prerender = false;
+---
+
+<Layout title="Welcome to Astro.">
+  <Overview client:only="vue" />
+</Layout>
