@@ -192,6 +192,9 @@ async function fetchData($connected: any) {
         if (rf.count > 0) {
           await refreshData();
         }
+        success.value = false;
+        msg.value = "try again in a bit";
+
         return;
       } else {
         success.value = false;
@@ -239,6 +242,7 @@ const pnl = computed(() => {
 });
 
 async function refreshData() {
+  fetch(`/api/sync/${$connected.value.address}`);
   await fetchData($connected);
 }
 
