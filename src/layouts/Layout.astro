@@ -12,7 +12,7 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content="jao" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
@@ -27,7 +27,9 @@ const { title } = Astro.props;
         <a class="btn btn-primary text-xl rounded-full">jao.</a>
       </div>
       <slot />
-      <footer class="footer footer-center p-10 bg-affair-950 rounded">
+      <footer
+        class="footer footer-center p-10 bg-affair-950 rounded flex flex-col gap-1"
+      >
         <aside>
           <p class="text-neutral-content">
             Price data provided by
@@ -38,6 +40,7 @@ const { title } = Astro.props;
             >
           </p>
         </aside>
+        <p class="text-neutral-content text-xs">powered by {Astro.generator}</p>
       </footer>
     </div>
   </body>
