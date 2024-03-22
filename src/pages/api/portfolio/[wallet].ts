@@ -54,7 +54,9 @@ export const GET: APIRoute = async ({ params, request }) => {
     ids.push(a.coingeckoId?.toLowerCase() as string);
   });
   let f = await fetch(
-    `http://${new URL(request.url).host}/api/coingecko/data`,
+    `${new URL(request.url).protocol}//${
+      new URL(request.url).host
+    }/api/coingecko/data`,
     {
       method: "POST",
       body: JSON.stringify({
