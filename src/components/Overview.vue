@@ -191,6 +191,7 @@ async function fetchData($connected: any) {
         const rf = await sf.json();
         if (rf.count > 0) {
           await refreshData();
+          return;
         }
         success.value = false;
         msg.value = "try again in a bit";
