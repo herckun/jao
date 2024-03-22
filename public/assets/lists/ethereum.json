@@ -40,6 +40,14 @@
     "contract":"0x3472a5a71965499acd81997a54bba8d852c6e53d",
     "decimals":18,
     "coingeckoId":"badger-dao"
+  },
+  {
+    "name": "FOX",
+    "chainId":1,
+    "contract":"0xc770EEfAd204B5180dF6a14Ee197D99d808ee52d",
+    "decimals": 18,
+    "coingeckoId":"shapeshift-fox-token"
+
   }
 ]
 
