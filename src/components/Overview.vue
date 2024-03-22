@@ -189,8 +189,9 @@ async function fetchData($connected: any) {
       const sf = await fetch(`/api/sync/${address}`);
       if (sf.status == 200) {
         const rf = await sf.json();
-        success.value = false;
-        await refreshData();
+        if (rf.count > 0) {
+          await refreshData();
+        }
         return;
       } else {
         success.value = false;
