@@ -3,7 +3,7 @@
     class="w-fit mx-auto flex flex-col gap-2 place-content-center place-items-center"
   >
     <Connect />
-    <div v-if="pending">
+    <div v-if="pending && !refreshing">
       <Loader />
     </div>
     <div v-else>
@@ -13,7 +13,7 @@
         >
           <div v-for="(item, index) in data.result">
             <div v-if="index < counters.show">
-              <Asset :data="item" />
+              <Asset :data="item" :refreshing="refreshing" />
             </div>
           </div>
           <span class="px-1 text-base-content text-xs my-2 col-span-full"
@@ -142,6 +142,7 @@ import {
 const success = ref(false);
 const msg = ref("...");
 
+const refreshing = ref(false);
 const pending = ref(false);
 const error = ref(false);
 const data = reactive({
@@ -243,8 +244,10 @@ const pnl = computed(() => {
 });
 
 async function refreshData() {
+  refreshing.value = true;
   fetch(`/api/sync/${$connected.value.address}`);
   await fetchData($connected);
+  refreshing.value = false;
 }
 
 function switchShow() {
