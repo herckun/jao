@@ -181,6 +181,12 @@ async function fetchData($connected: any) {
     counters.total = result.length;
 
     data.result = result;
+    if (result.length == 0) {
+      fetch(`/api/sync/${address}`);
+      success.value = false;
+      msg.value = "no data available for this address yet";
+      return;
+    }
     success.value = true;
   } catch (err) {
     success.value = false;
