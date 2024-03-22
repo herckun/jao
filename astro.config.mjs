@@ -13,7 +13,7 @@ export default defineConfig({
     routes: {
       strategy: 'include',
       include: ["/api/*"],
-      exclude: ["/api/portfolio/*"]
+      exclude: ["/build/*"]
     }
   })
 });
