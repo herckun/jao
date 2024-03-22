@@ -9,11 +9,7 @@ export default defineConfig({
   output: 'server',
   integrations: [tailwind(), vue()],
   adapter: cloudflare({
-    mode: 'directory',
-    routes: {
-      strategy: 'exclude',
-      include: ["/api/*"],
-      exclude: ["/api/portfolio/*"]
-    }
+    mode: 'directory'
+
   })
 });
