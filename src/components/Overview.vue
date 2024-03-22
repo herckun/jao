@@ -182,10 +182,21 @@ async function fetchData($connected: any) {
 
     data.result = result;
     if (result.length == 0) {
-      fetch(`/api/sync/${address}`);
       success.value = false;
-      msg.value = "no data available for this address yet";
-      return;
+      pending.value = false;
+      msg.value = "no data available, syncing...";
+
+      const sf = await fetch(`/api/sync/${address}`);
+      if (sf.status == 200) {
+        const rf = await sf.json();
+        success.value = false;
+        await refreshData();
+        return;
+      } else {
+        success.value = false;
+        msg.value = "try again in a bit";
+        return;
+      }
     }
     success.value = true;
   } catch (err) {
