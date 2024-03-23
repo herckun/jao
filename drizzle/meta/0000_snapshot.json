@@ -1,5 +1,5 @@
 {
-  "id": "274e3312-dd9d-4709-9047-f2bac2f462dc",
+  "id": "72cb8705-f81e-421c-9a8e-71b147760cd4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -55,7 +55,7 @@
         "id": {
           "name": "id",
           "type": "serial",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "balance": {
@@ -120,7 +120,15 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "balances_account_wallet_token_contract_pk": {
+          "name": "balances_account_wallet_token_contract_pk",
+          "columns": [
+            "account_wallet",
+            "token_contract"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "chains": {
@@ -162,15 +170,7 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "chains_chain_id_unique": {
-          "name": "chains_chain_id_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "chain_id"
-          ]
-        }
-      }
+      "uniqueConstraints": {}
     },
     "tokens": {
       "name": "tokens",

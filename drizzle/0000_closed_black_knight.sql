@@ -7,12 +7,13 @@ CREATE TABLE IF NOT EXISTS "accounts" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "balances" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" serial NOT NULL,
 	"balance" varchar,
 	"account_wallet" varchar,
 	"token_contract" varchar,
 	"created_at" timestamp DEFAULT now(),
-	"updated_at" timestamp DEFAULT now()
+	"updated_at" timestamp DEFAULT now(),
+	CONSTRAINT "balances_account_wallet_token_contract_pk" PRIMARY KEY("account_wallet","token_contract")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "chains" (
@@ -20,8 +21,7 @@ CREATE TABLE IF NOT EXISTS "chains" (
 	"name" varchar,
 	"chain_id" integer PRIMARY KEY DEFAULT 1 NOT NULL,
 	"native_symbol" varchar,
-	"icon_uri" varchar,
-	CONSTRAINT "chains_chain_id_unique" UNIQUE("chain_id")
+	"icon_uri" varchar
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "tokens" (

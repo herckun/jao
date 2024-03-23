@@ -8,7 +8,9 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate": "drizzle-kit generate:pg"
+    "generate": "drizzle-kit generate:pg",
+    "push": "drizzle-kit push:pg"
+    
   },
   "dependencies": {
     "@astrojs/check": "^0.5.9",

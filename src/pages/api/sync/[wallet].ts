@@ -49,21 +49,36 @@ export const GET: APIRoute = async ({ params, request }) => {
 
       if (rh == null) continue;
     }
+    let token = tokens[i];
 
     if (tokens[i].contract == rh.rpc.nativeSymbol) {
       let nativeBalance = (await rh?.getWalletNativeBalance(wallet as string))
         ?.balance as number;
       if (nativeBalance > 0.0001) {
-        await db.insert(Balance).values({
-          account_wallet: wallet as string,
-          balance: (nativeBalance * Math.pow(10, 18 as number)).toString(),
-          token_contract: rh.rpc.nativeSymbol as string,
+        let balanceString = (
+          nativeBalance * Math.pow(10, 18 as number)
+        ).toLocaleString("fullwide", {
+          useGrouping: false,
+          maximumSignificantDigits: 18 as number,
         });
+        await db
+          .insert(Balance)
+          .values({
+            account_wallet: wallet as string,
+            balance: balanceString,
+            token_contract: rh.rpc.nativeSymbol as string,
+          })
+          .onConflictDoUpdate({
+            target: [Balance.account_wallet, Balance.token_contract],
+            set: {
+              balance: balanceString,
+              token_contract: rh.rpc.nativeSymbol as string,
+            },
+          });
       }
       continue;
     }
 
-    let token = tokens[i];
     let getBalance = await rh.getWalletTokenBalance(
       wallet as string,
       token.contract as string
@@ -81,11 +96,20 @@ export const GET: APIRoute = async ({ params, request }) => {
       maximumSignificantDigits: token.decimals as number,
     });
 
-    await db.insert(Balance).values({
-      account_wallet: wallet as string,
-      balance: balanceString,
-      token_contract: token.contract as string,
-    });
+    await db
+      .insert(Balance)
+      .values({
+        account_wallet: wallet as string,
+        balance: balanceString,
+        token_contract: token.contract as string,
+      })
+      .onConflictDoUpdate({
+        target: [Balance.account_wallet, Balance.token_contract],
+        set: {
+          balance: balanceString,
+          token_contract: token.contract as string,
+        },
+      });
   }
 
   return new Response(
