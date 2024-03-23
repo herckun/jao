@@ -13,7 +13,11 @@
         >
           <div v-for="(item, index) in data.result">
             <div v-if="index < counters.show">
-              <Asset :data="item" :refreshing="refreshing" />
+              <Asset
+                :data="item"
+                :refreshing="refreshing"
+                :fill="index == counters.total && counters.total % 2 != 0"
+              />
             </div>
           </div>
           <span class="px-1 text-base-content text-xs my-2 col-span-full"

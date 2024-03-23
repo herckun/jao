@@ -1,6 +1,7 @@
 <template>
   <div
     class="bg-affair-950 rounded-xl h-[5.5rem] grid grid-cols-8 gap-1 place-content-center p-2 shrink-0 row-span-1 w-full col-span-1 overflow-hidden"
+    :class="{ 'col-span-full': fill }"
   >
     <div
       class="col-span-1 w-full h-full flex place-content-center place-items-center"
@@ -130,6 +131,7 @@ import { computed } from "vue";
 const props = defineProps({
   data: Object,
   refreshing: Boolean,
+  fill: Boolean,
 });
 
 const $censored = useStore(censored);
