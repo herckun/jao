@@ -23,6 +23,9 @@ dependencies:
   '@fontsource/montserrat':
     specifier: ^5.0.17
     version: 5.0.17
+  '@fontsource/nunito':
+    specifier: ^5.0.17
+    version: 5.0.17
   '@fontsource/pixelify-sans':
     specifier: ^5.0.2
     version: 5.0.2
@@ -2532,6 +2535,10 @@ packages:
 
   /@fontsource/montserrat@5.0.17:
     resolution: {integrity: sha512-3V3F8GqeN8wawLmAkAfTCYsBYRKu+JLm6ivWWX/v0dCYYPcwtQX0h5Z8j68N1YumuT75MqrghqU42w9DnFHojQ==}
+    dev: false
+
+  /@fontsource/nunito@5.0.17:
+    resolution: {integrity: sha512-1O8tFQImUR66MUZ8UGHmN1dveFzLXJhrGKBH7us2zXYe6juk0fPcV0uVvJEIyW8BsevEZMuExZhpGFiTy/g61Q==}
     dev: false
 
   /@fontsource/pixelify-sans@5.0.2:

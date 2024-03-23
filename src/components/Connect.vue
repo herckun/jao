@@ -25,7 +25,6 @@ createWeb3Modal({
   enableOnramp: true, // Optional - false as default
 });
 onMounted(() => {
-  console.log("i mounted : connect");
   reconnect(config);
   const unwatch = watchAccount(config, {
     onChange(data) {
@@ -36,7 +35,6 @@ onMounted(() => {
       connected.set({
         address: data.address?.toString() ?? "",
       });
-      console.log("connected: " + $connected.value.address);
     },
   });
 });

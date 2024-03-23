@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-fit mx-auto flex flex-col gap-2 place-content-center place-items-center"
+    class="w-fit mx-auto flex flex-col gap-1 place-content-center place-items-center"
   >
     <Connect />
     <div v-if="pending && !refreshing">
@@ -9,7 +9,7 @@
     <div v-else>
       <div v-if="success">
         <div
-          class="bg-affair-900/50 rounded-xl p-1 m-2 grid grid-cols-1 md:grid-cols-2 gap-0.5 w-[95vw] md:w-[70vw]"
+          class="bg-zinc-800 rounded-xl p-1 m-2 grid grid-cols-1 md:grid-cols-2 gap-0.5 w-[95vw] md:w-[55vw]"
         >
           <Asset
             v-for="(item, index) in data.result"
@@ -18,13 +18,9 @@
             :refreshing="refreshing"
             :fill="index == counters.total - 1 && counters.total % 2 != 0"
           />
-          <span class="px-1 text-base-content text-xs my-2 col-span-full"
-            >Showing {{ counters.show }}/{{ counters.total }} coins</span
-          >
-
           <button
             v-if="counters.total > 6"
-            class="btn btn-secondary col-span-full"
+            class="btn btn btn-ghost bg-white/10 col-span-full"
             @click="switchShow"
           >
             <span v-if="counters.show == counters.total">Show less</span>
@@ -32,10 +28,10 @@
           </button>
         </div>
         <div
-          class="bg-affair-900/50 rounded-xl p-2 m-2 flex flex-col md:flex-row justify-between gap-1 w-[95vw] md:w-[70vw]"
+          class="bg-zinc-800 rounded-xl p-2 m-2 flex flex-col md:flex-row justify-between gap-1 w-[95vw] md:w-[55vw]"
         >
           <div class="font-black text-2xl text-affair-300 p-2 flex flex-col">
-            <span class="text-zinc-200" :class="{ 'blur-md': $censored }">
+            <span class="text-zinc-200" :class="{ 'blur-sm': $censored }">
               ~{{
                 new Intl.NumberFormat("en-EN", {
                   maximumSignificantDigits: 8,
@@ -46,7 +42,7 @@
             </span>
             <span
               class="text-xs font-semibold"
-              :class="{ 'text-red-400': pnl < 0 }"
+              :class="{ 'text-red-400': pnl < 0, 'glowing-text': pnl > 0 }"
             >
               <span v-if="pnl > 0">+</span
               >{{
@@ -140,6 +136,7 @@ import {
   ref,
   watch,
 } from "vue";
+import fetchnc from "../server/lib/fetchnc";
 
 const success = ref(false);
 const msg = ref("...");
@@ -180,7 +177,7 @@ async function fetchData($connected: any) {
     const json = await f.json();
     let result = json?.result;
 
-    counters.show = result.length > 6 ? 6 : result.length;
+    counters.show = result.length > 4 ? 4 : result.length;
     counters.total = result.length;
 
     data.result = result;
@@ -248,14 +245,14 @@ const pnl = computed(() => {
 
 async function refreshData() {
   refreshing.value = true;
-  fetch(`/api/sync/${$connected.value.address}`);
+  fetchnc(`/api/sync/${$connected.value.address}`, 30);
   await fetchData($connected);
   refreshing.value = false;
 }
 
 function switchShow() {
   if (counters.show == counters.total) {
-    counters.show = 6 < counters.total ? 6 : counters.total;
+    counters.show = 4 < counters.total ? 4 : counters.total;
   } else {
     counters.show = counters.total;
   }
@@ -264,3 +261,11 @@ function switchCensor() {
   censored.set(!$censored.value);
 }
 </script>
+<style>
+.glowing-text {
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 35px #0fa,
+    0 0 82px #0fa, 0 0 42px #0fa, 0 0 52px rgb(25, 141, 102), 0 0 51px #0fa;
+}
+</style>

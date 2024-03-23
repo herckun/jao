@@ -1,6 +1,12 @@
 ---
-import "@fontsource/ubuntu";
-
+import "@fontsource/nunito/200.css";
+import "@fontsource/nunito/300.css";
+import "@fontsource/nunito/400.css";
+import "@fontsource/nunito/500.css";
+import "@fontsource/nunito/600.css";
+import "@fontsource/nunito/700.css";
+import "@fontsource/nunito/800.css";
+import "@fontsource/nunito/900.css";
 interface Props {
   title: string;
 }
@@ -12,23 +18,23 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="jao" />
+    <meta name="description" content="just an overview." />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
   <body>
     <div
       data-theme="froggycandle"
-      class="min-h-screen bg-affair-950 flex flex-col place-content-center place-items-center gap-2"
+      class="min-h-screen bg-gradient-to-tr from-zinc-950 to-zinc-800 flex flex-col place-content-center place-items-center gap-2"
     >
       <div class="navbar w-fit mx-auto flex flex-col gap-1 my-2">
         <a class="btn btn-primary text-xl rounded-full">jao.</a>
       </div>
       <slot />
       <footer
-        class="footer footer-center p-10 bg-affair-950 rounded flex flex-col gap-1"
+        class="footer footer-center p-10 bg-transparent rounded flex flex-col gap-1"
       >
         <aside>
           <p class="text-neutral-content">
@@ -36,7 +42,8 @@ const { title } = Astro.props;
             <a
               href="https://www.coingecko.com"
               target="_blank"
-              class="text-affair-400 font-semibold">CoinGecko</a
+              class="text-affair-400 font-semibold p-2 bg-affair-950 rounded-full"
+              >CoinGecko</a
             >
           </p>
         </aside>
@@ -49,6 +56,6 @@ const { title } = Astro.props;
 <style>
   html,
   * {
-    font-family: "Ubuntu", system-ui;
+    font-family: "Nunito", sans-serif;
   }
 </style>

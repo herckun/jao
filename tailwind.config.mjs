@@ -75,11 +75,11 @@ export default {
 		themes: [
 		  {
 		  'froggycandle': {
-			"primary": "#ffc66d",
-			"secondary": "#63a469",
-			"accent": "#ffffff",
-			"neutral": "#0b180e",
-			"base-100": "#09090b",
+			"primary": "#ffffff",
+			"secondary": "#09090b",
+			"accent": "#ecebff",
+			"neutral": "#565584",
+			"base-100": "#18181b",
 		  }
 		},
 		  "coffee",
