@@ -16,7 +16,7 @@
               <Asset
                 :data="item"
                 :refreshing="refreshing"
-                :fill="index == counters.total && counters.total % 2 != 0"
+                :fill="index == counters.total - 1 && counters.total % 2 != 0"
               />
             </div>
           </div>
