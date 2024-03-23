@@ -12,13 +12,13 @@
           class="bg-affair-900/50 rounded-xl p-1 m-2 grid grid-cols-1 md:grid-cols-2 gap-0.5 w-[95vw] md:w-[70vw]"
           v-for="(item, index) in data.result"
         >
-          <div v-if="index < counters.show">
-            <Asset
-              :data="item"
-              :refreshing="refreshing"
-              :fill="index == counters.total - 1 && counters.total % 2 != 0"
-            />
-          </div>
+          <Asset
+            v-if="index < counters.show"
+            :data="item"
+            :refreshing="refreshing"
+            :fill="index == counters.total - 1 && counters.total % 2 != 0"
+          />
+
           <span class="px-1 text-base-content text-xs my-2 col-span-full"
             >Showing {{ counters.show }}/{{ counters.total }} coins</span
           >
