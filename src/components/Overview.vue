@@ -265,7 +265,8 @@ function switchCensor() {
 .glowing-text {
   color: #fff;
   font-weight: bold;
-  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 35px #0fa,
-    0 0 82px #0fa, 0 0 42px #0fa, 0 0 52px rgb(25, 141, 102), 0 0 51px #0fa;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #00ffaa,
+    0 0 30px rgb(0, 255, 64), 0 0 40px rgb(0, 255, 64), 0 0 50px rgb(0, 255, 64),
+    0 0 100px rgb(0, 255, 64);
 }
 </style>

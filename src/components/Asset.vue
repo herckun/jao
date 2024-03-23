@@ -54,10 +54,14 @@
     </div>
 
     <div
-      class="col-span-5 sm:col-span-3 flex h-fit flex-col gap-0 place-content-end place-items-end w-full text-ellipsis text-zinc-200 font-bold text-sm md:text-lg px-2"
+      class="col-span-5 sm:col-span-3 flex h-fit flex-col gap-0 place-content-end place-items-end w-full text-ellipsis px-2"
     >
       <div v-if="refreshing" class="skeleton w-20 h-6"></div>
-      <span v-else :class="{ 'blur-sm': $censored }">
+      <span
+        class="font-bold text-sm text-white md:text-lg"
+        v-else
+        :class="{ 'blur-sm': $censored }"
+      >
         {{
           new Intl.NumberFormat("en-EN", {
             maximumSignificantDigits: 3,
@@ -98,9 +102,9 @@
         </span>
         <span
           v-else
-          class="text-affair-200 filter align-middle flex flex-col gap-1 place-content-end place-items-end text-xs font-normal"
+          class="text-affair-200 filter align-middle flex flex-col gap-1 place-content-end place-items-end text-xs"
         >
-          <span class="glowing-text">
+          <span class="glowing-text font-light">
             +{{
               new Intl.NumberFormat("en-EN", {
                 maximumSignificantDigits: 3,
