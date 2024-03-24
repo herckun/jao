@@ -50,7 +50,7 @@
         <div v-if="refreshing" class="skeleton w-6 h-4"></div>
         <span
           v-else
-          class="text-base-content/50 text-xs text-nowrap text-ellipsis overflow-hidden"
+          class="text-base-content/50 w-9 md:w-fit text-xs text-nowrap text-ellipsis overflow-hidden"
           >{{
             "@ $" +
             new Intl.NumberFormat("en-EN", {
