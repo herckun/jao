@@ -24,7 +24,7 @@
         <span v-else>{{ data.token.name }}</span>
       </span>
       <span
-        class="text-xs text-primary flex flex-col md:flex-row place-content-start place-items-start gap-1 w-full"
+        class="text-xs text-primary flex flex-col md:flex-row place-content-start place-items-start gap-1 w-full text-nowrap"
       >
         <div class="flex place-items-start gap-1">
           <div v-if="refreshing" class="skeleton rounded-full w-4 h-4"></div>
@@ -52,7 +52,7 @@
           v-else
           class="text-base-content/50 w-9 md:w-fit text-xs text-nowrap text-ellipsis overflow-hidden"
           >{{
-            "@ $" +
+            "@$" +
             new Intl.NumberFormat("en-EN", {
               maximumSignificantDigits: 2,
             }).format(data.token.unitPrice)
