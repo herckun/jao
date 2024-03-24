@@ -52,7 +52,7 @@
           v-else
           class="text-base-content/50 w-9 md:w-fit text-xs text-nowrap text-ellipsis overflow-hidden"
           >{{
-            "@$" +
+            "$" +
             new Intl.NumberFormat("en-EN", {
               maximumSignificantDigits: 2,
             }).format(data.token.unitPrice)
