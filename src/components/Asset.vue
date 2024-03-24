@@ -84,13 +84,15 @@
           v-if="data.token.dayPriceChange < 0"
           class="text-red-400 align-middle flex flex-wrap gap-0 place-content-end place-items-center text-xs font-normal"
         >
-          -<span class="w-full h-fit text-right">{{
-            new Intl.NumberFormat("en-EN", {
-              maximumSignificantDigits: 3,
-              style: "currency",
-              currency: "USD",
-            }).format(pnl)
-          }}</span>
+          <span class="w-full h-fit text-right"
+            >-{{
+              new Intl.NumberFormat("en-EN", {
+                maximumSignificantDigits: 3,
+                style: "currency",
+                currency: "USD",
+              }).format(pnl)
+            }}</span
+          >
 
           <svg
             xmlns="http://www.w3.org/2000/svg"
