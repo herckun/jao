@@ -34,7 +34,9 @@
             <span class="text-zinc-200" :class="{ 'blur-sm': $censored }">
               ~{{
                 new Intl.NumberFormat("en-EN", {
-                  maximumSignificantDigits: 8,
+                  maximumSignificantDigits: 5,
+                  roundingPriority: "morePrecision",
+                  roundingMode: "floor",
                   style: "currency",
                   currency: "USD",
                 }).format(totalBalance)
@@ -47,7 +49,9 @@
               <span v-if="pnl > 0">+</span
               >{{
                 new Intl.NumberFormat("en-EN", {
-                  maximumSignificantDigits: 5,
+                  maximumSignificantDigits: 2,
+                  roundingPriority: "morePrecision",
+                  roundingMode: "floor",
                   style: "currency",
                   currency: "USD",
                 }).format(pnl)
@@ -225,14 +229,9 @@ const dayOldBalance = computed(() => {
   let t = 0;
   data.result.forEach((element) => {
     let p = Math.abs(element.token.dayPriceChange) / 100;
-    t =
-      element.token.dayPriceChange > 0
-        ? t +
-          element.balance *
-            (element.token.unitPrice - p * element.token.unitPrice)
-        : t +
-          element.balance *
-            (element.token.unitPrice + p * element.token.unitPrice);
+    let n = element.token.unitPrice;
+    let o = n / (p + 1);
+    t += element.balance * o;
   });
 
   return t;

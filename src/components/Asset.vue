@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-base-100 rounded-md h-[5.5rem] grid grid-cols-8 gap-1 place-content-center place-items-center p-2 shrink-0 row-span-1 w-full col-span-1 overflow-hidden"
+    class="bg-gradient-to-r from-base-300 to-base-200 border-0 border-r border-b border-zinc-700/50 shadow-zinc-700/30 shadow-md rounded-md h-[5.5rem] grid grid-cols-8 gap-1 place-content-center place-items-center p-2 shrink-0 row-span-1 w-full col-span-1 overflow-hidden"
     :class="{ 'col-span-full': fill }"
   >
     <div
@@ -15,7 +15,7 @@
       />
     </div>
     <div
-      class="col-span-1 sm:col-span-4 flex flex-col gap-1 p-2 place-items-start place-content-center w-full h-full"
+      class="col-span-3 sm:col-span-4 flex flex-col gap-1 p-2 place-items-start place-content-center w-full h-full"
     >
       <span
         class="flex place-items-center gap-1 font-bold text-sm text-white align-middle"
@@ -23,26 +23,34 @@
         <div v-if="refreshing" class="skeleton w-6 h-4"></div>
         <span v-else>{{ data.token.name }}</span>
       </span>
-      <span class="text-xs text-primary flex place-items-center gap-1">
-        <div v-if="refreshing" class="skeleton rounded-full w-4 h-4"></div>
-        <img
-          v-else
-          :alt="data.chain.id + '-icon'"
-          class="w-4 object-cover"
-          :src="data.chain.iconURI"
-        />
-        <div v-if="refreshing" class="skeleton w-6 h-4"></div>
-        <span v-else :class="{ 'blur-sm': $censored }">
-          {{
-            new Intl.NumberFormat("en-EN", {
-              maximumSignificantDigits: 4,
-            }).format(data.balance)
-          }}
-        </span>
+      <span
+        class="text-xs text-primary flex flex-col md:flex-row place-content-start place-items-start gap-1 w-full"
+      >
+        <div class="flex place-items-start gap-1">
+          <div v-if="refreshing" class="skeleton rounded-full w-4 h-4"></div>
+          <img
+            v-else
+            :alt="data.chain.id + '-icon'"
+            class="w-4 object-cover"
+            :src="data.chain.iconURI"
+          />
+          <div v-if="refreshing" class="skeleton w-6 h-4"></div>
+          <span
+            v-else
+            class="w-9 md:w-fit text-ellipsis overflow-hidden"
+            :class="{ 'blur-sm': $censored }"
+          >
+            {{
+              new Intl.NumberFormat("en-EN", {
+                maximumSignificantDigits: 4,
+              }).format(data.balance)
+            }}
+          </span>
+        </div>
         <div v-if="refreshing" class="skeleton w-6 h-4"></div>
         <span
           v-else
-          class="text-base-content/50 text-xs hidden sm:inline-block"
+          class="text-base-content/50 text-xs text-nowrap text-ellipsis overflow-hidden"
           >{{
             "@ $" +
             new Intl.NumberFormat("en-EN", {
@@ -54,7 +62,7 @@
     </div>
 
     <div
-      class="col-span-5 sm:col-span-3 flex h-fit flex-col gap-0 place-content-end place-items-end w-full text-ellipsis px-2"
+      class="col-span-3 sm:col-span-3 flex h-fit flex-col gap-0 place-content-end place-items-end w-full text-ellipsis px-2"
     >
       <div v-if="refreshing" class="skeleton w-20 h-6"></div>
       <span
@@ -88,7 +96,7 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
             fill="currentColor"
-            class="w-4 h-4 inline-block align-middle"
+            class="w-4 h-4 align-middle hidden sm:inline-block"
           >
             <path
               fill-rule="evenodd"
@@ -97,7 +105,13 @@
             />
           </svg>
           <span :class="{ 'blur-sm': $censored }"
-            >{{ data.token.dayPriceChange }}%</span
+            >{{
+              new Intl.NumberFormat("en-EN", {
+                maximumSignificantDigits: 2,
+                roundingPriority: "morePrecision",
+                roundingMode: "floor",
+              }).format(data.token.dayPriceChange)
+            }}%</span
           >
         </span>
         <span
@@ -118,7 +132,7 @@
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
               fill="currentColor"
-              class="w-4 h-4 inline-block align-middle"
+              class="w-4 h-4 align-middle hidden sm:inline-block"
             >
               <path
                 fill-rule="evenodd"
@@ -127,7 +141,13 @@
               />
             </svg>
             <span :class="{ 'blur-sm': $censored }"
-              >{{ data.token.dayPriceChange }}%</span
+              >{{
+                new Intl.NumberFormat("en-EN", {
+                  maximumSignificantDigits: 2,
+                  roundingPriority: "morePrecision",
+                  roundingMode: "floor",
+                }).format(data.token.dayPriceChange)
+              }}%</span
             >
           </span>
         </span>
@@ -149,12 +169,11 @@ const props = defineProps({
 const $censored = useStore(censored);
 
 const pnl = computed(() => {
-  let data = props.data;
-  let p = Math.abs(data.token.dayPriceChange) / 100;
-  let oldValue =
-    data.token.dayPriceChange < 0
-      ? data.balance * (data.token.unitPrice - p * data.token.unitPrice)
-      : data.balance * (data.token.unitPrice + p * data.token.unitPrice);
-  return oldValue - data.token.totalValue;
+  let element = props.data;
+  let p = Math.abs(element.token.dayPriceChange) / 100;
+  let n = element.token.unitPrice;
+  let o = n / (p + 1);
+  let oldValue = element.balance * o;
+  return element.token.totalValue - oldValue;
 });
 </script>
