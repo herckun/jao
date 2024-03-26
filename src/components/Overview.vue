@@ -200,18 +200,18 @@ async function fetchData($connected: any) {
           return;
         } else {
           success.value = false;
-          msg.value = "try again in a bit";
+          msg.value = "try again later";
           return;
         }
       } else {
         success.value = false;
-        msg.value = "try again in a bit";
+        msg.value = "try again later";
         return;
       }
     }
     success.value = true;
   } catch (err) {
-    msg.value = "try again in a bit";
+    msg.value = "try again later";
     success.value = false;
   } finally {
     pending.value = false;
