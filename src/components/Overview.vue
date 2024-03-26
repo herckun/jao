@@ -225,7 +225,7 @@ watch($connected, async () => {
   }
 });
 
-async function fetchData($connected: any) {
+async function fetchData($connected: any, ttl: number = 30) {
   let address = $connected.value.address;
   if (address == null || address.length == 0) {
     success.value = false;
@@ -235,7 +235,7 @@ async function fetchData($connected: any) {
   pending.value = true;
 
   try {
-    const f = await fetchnc(`/api/portfolio/${address}`, 30);
+    const f = await fetchnc(`/api/portfolio/${address}`, ttl);
     const json = await f.json();
     let result = json?.result;
 
@@ -252,7 +252,7 @@ async function fetchData($connected: any) {
       if (sf.status == 200) {
         const rf = await sf.json();
         if (parseInt(rf.count) > 0) {
-          await refreshData();
+          await refreshData(0);
           return;
         } else {
           success.value = false;
@@ -297,10 +297,10 @@ const pnl = computed(() => {
   return t;
 });
 
-async function refreshData() {
+async function refreshData(ttl: number = 30) {
   refreshing.value = true;
   fetchnc(`/api/sync/${$connected.value.address}`, 30);
-  await fetchData($connected);
+  await fetchData($connected, ttl);
   refreshing.value = false;
 }
 
@@ -322,8 +322,14 @@ function changeTimeFrame(m: string) {
 .glowing-text {
   color: #fff;
   font-weight: bold;
-  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #00ffaa,
-    0 0 30px rgb(0, 255, 64), 0 0 40px rgb(0, 255, 64), 0 0 50px rgb(0, 255, 64),
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 15px #fff,
+    0 0 20px #00ffaa,
+    0 0 30px rgb(0, 255, 64),
+    0 0 40px rgb(0, 255, 64),
+    0 0 50px rgb(0, 255, 64),
     0 0 100px rgb(0, 255, 64);
 }
 </style>
