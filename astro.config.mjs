@@ -3,12 +3,11 @@ import tailwind from "@astrojs/tailwind";
 import vue from "@astrojs/vue";
 import cloudflare from "@astrojs/cloudflare";
 
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
   integrations: [tailwind(), vue()],
-  adapter: cloudflare({
-    mode: 'directory'
-  })
+  adapter: vercel()
 });
