@@ -292,7 +292,7 @@ const pnl = computed(() => {
     let o = n / (p + 1);
     let oldValue = element.balance * o;
     let c = element.token.totalValue - oldValue;
-    t = element.token.dayPriceChange < 0 ? t - c : t + c;
+    t = change < 0 ? t - c : t + c;
   });
   return t;
 });
