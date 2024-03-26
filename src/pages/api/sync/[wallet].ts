@@ -75,6 +75,7 @@ export const GET: APIRoute = async ({ params, request }) => {
               token_contract: rh.rpc.nativeSymbol as string,
             },
           });
+        counter++;
       }
       continue;
     }
