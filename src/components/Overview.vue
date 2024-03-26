@@ -235,7 +235,7 @@ async function fetchData($connected: any) {
   pending.value = true;
 
   try {
-    const f = await fetchnc(`/api/portfolio/${address}`, 15);
+    const f = await fetchnc(`/api/portfolio/${address}`, 30);
     const json = await f.json();
     let result = json?.result;
 

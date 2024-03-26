@@ -17,13 +17,14 @@ const fetchnc = async (
     console.info(
       `serving cached response, fetching again in ${ttl - e} seconds`
     );
-    return r.res;
+    return new Response(r.res);
   }
   const f = await fetch(url, options);
-  r.res = f;
+  const json = await f.json();
+  r.res = JSON.stringify(json);
   r.last = new Date().getTime();
   window.localStorage.setItem(`${url}-${identifier}`, JSON.stringify(r));
-  return r.res;
+  return new Response(r.res);
 };
 
 export default fetchnc;
