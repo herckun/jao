@@ -162,6 +162,9 @@ const $censored = useStore(censored);
 
 watch($connected, async () => {
   await fetchData($connected);
+  if ($connected.value.address === "") {
+    msg.value = "...";
+  }
 });
 
 async function fetchData($connected: any) {
@@ -170,7 +173,6 @@ async function fetchData($connected: any) {
     success.value = false;
     return;
   }
-  console.log("fetching data");
   error.value = false;
   pending.value = true;
 
@@ -193,14 +195,14 @@ async function fetchData($connected: any) {
       const sf = await fetch(`/api/sync/${address}`);
       if (sf.status == 200) {
         const rf = await sf.json();
-        if (rf.count > 0) {
+        if (parseInt(rf.count) > 0) {
           await refreshData();
           return;
+        } else {
+          success.value = false;
+          msg.value = "try again in a bit";
+          return;
         }
-        success.value = false;
-        msg.value = "try again in a bit";
-
-        return;
       } else {
         success.value = false;
         msg.value = "try again in a bit";
@@ -213,7 +215,6 @@ async function fetchData($connected: any) {
     success.value = false;
   } finally {
     pending.value = false;
-    msg.value = "...";
   }
 }
 
