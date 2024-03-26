@@ -33,7 +33,7 @@
               <span v-if="pnl > 0">+</span
               >{{
                 new Intl.NumberFormat("en-EN", {
-                  maximumSignificantDigits: 2,
+                  maximumSignificantDigits: 4,
                   roundingPriority: "morePrecision",
                   roundingMode: "floor",
                   style: "currency",
