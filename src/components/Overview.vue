@@ -99,7 +99,7 @@
             </button>
             <div
               role="tablist"
-              class="tabs bg-white/10 tabs-boxed tabs-xs col-span-full"
+              class="tabs bg-white/10 tabs-boxed tabs-xs col-span-full w-full"
             >
               <a
                 @click="changeTimeFrame('hour')"
