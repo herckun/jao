@@ -97,7 +97,7 @@
               '': data.token.price_change[$timeframe] < 0,
             }"
           >
-            <span v-if="data.token.price_change[$timeframe.value] < 0">-</span>
+            <span v-if="data.token.price_change[$timeframe] < 0">-</span>
             <span v-else>+</span>
 
             <span>
@@ -112,7 +112,7 @@
           </span>
           <span>
             <svg
-              v-if="data.token.price_change[$timeframe.value] < 0"
+              v-if="data.token.price_change[$timeframe] < 0"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
               fill="currentColor"
