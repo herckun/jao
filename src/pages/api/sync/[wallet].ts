@@ -88,7 +88,6 @@ export const GET: APIRoute = async ({ params, request }) => {
     if (balance < 0.00001) {
       continue;
     }
-    counter++;
     let balanceString = (
       balance * Math.pow(10, token.decimals as number)
     ).toLocaleString("fullwide", {
@@ -110,6 +109,7 @@ export const GET: APIRoute = async ({ params, request }) => {
           token_contract: token.contract as string,
         },
       });
+    counter++;
   }
 
   return new Response(
