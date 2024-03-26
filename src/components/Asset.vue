@@ -10,7 +10,7 @@
       <img
         v-else
         :alt="data.token.name + '-icon'"
-        class="w-12 md:w-full shrink-0 object-cover"
+        class="w-12 shrink-0 object-cover"
         :src="data.token.iconURI"
       />
     </div>
