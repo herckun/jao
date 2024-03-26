@@ -9,29 +9,13 @@
     <div v-else>
       <div v-if="success">
         <div
-          class="bg-zinc-800 rounded-xl p-1 m-2 grid grid-cols-1 md:grid-cols-2 gap-0.5 w-[95vw] md:w-[55vw]"
-        >
-          <Asset
-            v-for="(item, index) in data.result"
-            v-show="index < counters.show"
-            :data="item"
-            :refreshing="refreshing"
-            :fill="index == counters.total - 1 && counters.total % 2 != 0"
-          />
-          <button
-            v-if="counters.total > 6"
-            class="btn btn btn-ghost bg-white/10 col-span-full"
-            @click="switchShow"
-          >
-            <span v-if="counters.show == counters.total">Show less</span>
-            <span v-else>Show all</span>
-          </button>
-        </div>
-        <div
           class="bg-zinc-800 rounded-xl p-2 m-2 flex flex-col md:flex-row justify-between gap-1 w-[95vw] md:w-[55vw]"
         >
-          <div class="font-black text-2xl text-affair-300 p-2 flex flex-col">
-            <span class="text-zinc-200" :class="{ 'blur-sm': $censored }">
+          <div class="text-2xl p-1 gap-1 flex flex-col">
+            <span
+              class="text-zinc-200 font-black"
+              :class="{ 'blur-sm': $censored }"
+            >
               ~{{
                 new Intl.NumberFormat("en-EN", {
                   maximumSignificantDigits: 5,
@@ -58,9 +42,11 @@
               }}
             </span>
           </div>
-          <div class="flex place-content-end gap-1 w-full md:w-fit">
+          <div
+            class="grid grid-cols-2 gap-1 w-full place-items-end md:w-fit h-fit"
+          >
             <button
-              class="btn btn-ghost bg-white/10 w-fit p-4 h-full"
+              class="btn btn-ghost bg-white/10 col-span-1 w-full p-4"
               @click="refreshData"
             >
               <svg
@@ -77,7 +63,7 @@
               </svg>
             </button>
             <button
-              class="btn btn-ghost bg-white/10 w-fit p-4 h-full"
+              class="btn btn-ghost bg-white/10 col-span-1 w-full p-4"
               @click="switchCensor"
             >
               <svg
@@ -111,7 +97,78 @@
                 />
               </svg>
             </button>
+            <div
+              role="tablist"
+              class="tabs bg-white/10 tabs-boxed tabs-xs col-span-full"
+            >
+              <a
+                @click="changeTimeFrame('hour')"
+                role="tab"
+                class="tab"
+                :class="{ 'tab-active': $timeframe == 'hour' }"
+                >1h</a
+              >
+              <a
+                @click="changeTimeFrame('day')"
+                class="tab"
+                :class="{ 'tab-active': $timeframe == 'day' }"
+                >1d</a
+              >
+              <a
+                @click="changeTimeFrame('week')"
+                class="tab"
+                :class="{ 'tab-active': $timeframe == 'week' }"
+                >1w</a
+              >
+              <a
+                @click="changeTimeFrame('month')"
+                class="tab"
+                :class="{ 'tab-active': $timeframe == 'month' }"
+                >1m</a
+              >
+              <a
+                @click="changeTimeFrame('year')"
+                class="tab"
+                :class="{ 'tab-active': $timeframe == 'year' }"
+                >1y</a
+              >
+            </div>
           </div>
+        </div>
+        <div
+          class="bg-zinc-800 rounded-xl p-1 m-2 grid grid-cols-1 md:grid-cols-2 gap-0.5 w-[95vw] md:w-[55vw]"
+        >
+          <Asset
+            v-for="(item, index) in data.result"
+            v-show="index < counters.show"
+            :data="item"
+            :refreshing="refreshing"
+            :fill="index == counters.total - 1 && counters.total % 2 != 0"
+          />
+          <button
+            v-if="counters.total > 6"
+            class="btn btn-xs btn-ghost w-fit"
+            @click="switchShow"
+          >
+            <span v-if="counters.show == counters.total">
+              <span>See less</span>
+            </span>
+            <span class="align-middle" v-else>
+              <span class="align-middle">See all</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                class="w-4 h-4 inline-block align-middle"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
       </div>
       <div v-else>
@@ -141,6 +198,7 @@ import {
   watch,
 } from "vue";
 import fetchnc from "../server/lib/fetchnc";
+import { timeframe } from "../stores/timeframe";
 
 const success = ref(false);
 const msg = ref("...");
@@ -156,9 +214,9 @@ const counters = reactive({
   show: 0,
 });
 
-const abortController = new AbortController();
 const $connected = useStore(connected);
 const $censored = useStore(censored);
+const $timeframe = useStore(timeframe);
 
 watch($connected, async () => {
   await fetchData($connected);
@@ -177,9 +235,7 @@ async function fetchData($connected: any) {
   pending.value = true;
 
   try {
-    const f = await fetch(`/api/portfolio/${address}`, {
-      signal: abortController.signal,
-    });
+    const f = await fetchnc(`/api/portfolio/${address}`, 15);
     const json = await f.json();
     let result = json?.result;
 
@@ -230,7 +286,8 @@ const totalBalance = computed(() => {
 const pnl = computed(() => {
   let t = 0;
   data.result.forEach((element) => {
-    let p = Math.abs(element.token.dayPriceChange) / 100;
+    let change = element.token.price_change[$timeframe.value];
+    let p = Math.abs(change) / 100;
     let n = element.token.unitPrice;
     let o = n / (p + 1);
     let oldValue = element.balance * o;
@@ -256,6 +313,9 @@ function switchShow() {
 }
 function switchCensor() {
   censored.set(!$censored.value);
+}
+function changeTimeFrame(m: string) {
+  timeframe.set(m);
 }
 </script>
 <style>

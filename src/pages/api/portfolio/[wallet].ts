@@ -86,8 +86,13 @@ export const GET: APIRoute = async ({ params, request }) => {
         iconURI: a.iconURI,
         unitPrice: data[0] == undefined ? 0 : data[0].current_price,
         totalValue: data[0] == undefined ? 0 : data[0].current_price * balance,
-        dayPriceChange:
-          data[0] == undefined ? 0 : data[0].price_change_percentage_24h,
+        price_change: {
+          hour: data[0].price_change_percentage_1h_in_currency,
+          day: data[0].price_change_percentage_24h_in_currency,
+          week: data[0].price_change_percentage_7d_in_currency,
+          month: data[0].price_change_percentage_30d_in_currency,
+          year: data[0].price_change_percentage_1y_in_currency,
+        },
       },
       chain: {
         id: a.chain,

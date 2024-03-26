@@ -2,7 +2,7 @@ const fetchnc = async (
   url: string,
   ttl = 0,
   options?: RequestInit,
-  identifier?: string
+  identifier: string = ""
 ) => {
   let lc = window.localStorage.getItem(`${url}-${identifier}`);
   let r =
@@ -23,6 +23,7 @@ const fetchnc = async (
   r.res = f;
   r.last = new Date().getTime();
   window.localStorage.setItem(`${url}-${identifier}`, JSON.stringify(r));
+  return r.res;
 };
 
 export default fetchnc;
