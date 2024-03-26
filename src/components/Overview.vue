@@ -209,6 +209,7 @@ async function fetchData($connected: any) {
     }
     success.value = true;
   } catch (err) {
+    msg.value = "try again in a bit";
     success.value = false;
   } finally {
     pending.value = false;
@@ -225,21 +226,17 @@ const totalBalance = computed(() => {
   return t;
 });
 
-const dayOldBalance = computed(() => {
+const pnl = computed(() => {
   let t = 0;
   data.result.forEach((element) => {
     let p = Math.abs(element.token.dayPriceChange) / 100;
     let n = element.token.unitPrice;
     let o = n / (p + 1);
-    t += element.balance * o;
+    let oldValue = element.balance * o;
+    let c = element.token.totalValue - oldValue;
+    t = element.token.dayPriceChange < 0 ? t - c : t + c;
   });
-
   return t;
-});
-
-const pnl = computed(() => {
-  let change = totalBalance.value - dayOldBalance.value;
-  return change;
 });
 
 async function refreshData() {
