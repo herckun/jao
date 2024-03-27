@@ -4,10 +4,10 @@ import { mainnet, sepolia } from "@wagmi/core/chains";
 
 export const projectId = "2f95c7b370fe8d6e8e5def9e3bc36c69";
 export const metadata = {
-  name: "Web3Modal",
-  description: "Web3Modal Example",
-  url: "https://web3modal.com", // origin must match your domain & subdomain
-  icons: ["https://avatars.githubusercontent.com/u/37784886"],
+  name: "jao.",
+  description: "just an overview",
+  url: "https://jao-astroport.pages.dev/", // origin must match your domain & subdomain
+  icons: ["https://jao-astroport.pages.dev/favicon.jpg"],
 };
 export const config = createConfig({
   chains: [mainnet],
