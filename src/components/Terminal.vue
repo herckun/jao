@@ -1,12 +1,12 @@
 <template>
   <aside
-    class="bg-zinc-950 text-white p-6 rounded-lg w-full max-w-md font-mono mt-2"
+    class="bg-zinc-800 text-white p-6 rounded-lg w-full max-w-md font-mono mt-2"
   >
     <div class="flex justify-between items-center">
       <div class="flex space-x-2 text-red-500">
         <div class="w-3 h-3 rounded-full bg-red-500"></div>
         <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+        <div class="w-3 h-3 rounded-full bg-affair-400"></div>
       </div>
       <p class="text-sm">bash</p>
     </div>
