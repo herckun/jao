@@ -35,7 +35,7 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body
-    class="bg-gradient-to-b from-zinc-950 via-50% via-zinc-950/50 to-zinc-800"
+    class="bg-gradient-to-b from-zinc-950 via-50% via-zinc-950/50 to-zinc-800 relative"
   >
     <div class="w-screen h-full absolute z-10 pattern opacity-10">
       <div
@@ -64,12 +64,14 @@ const { title } = Astro.props;
             <a
               href="https://www.coingecko.com"
               target="_blank"
-              class="text-affair-400 font-semibold p-2 bg-affair-950 rounded-full"
+              class="text-affair-400 font-semibold p-2 bg-affair-950 rounded-full text-xs"
               >CoinGecko</a
             >
           </p>
         </aside>
-        <p class="text-neutral-content text-xs">powered by {Astro.generator}</p>
+        <p class="text-neutral-content text-xs mt-2 font-bold">
+          powered by {Astro.generator}
+        </p>
       </footer>
     </div>
   </body>
