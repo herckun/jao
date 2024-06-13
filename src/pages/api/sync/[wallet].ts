@@ -7,6 +7,8 @@ import { optimism } from "../../../server/lib/chains/optimism";
 import { polygon } from "../../../server/lib/chains/polygon";
 import { dymension } from "../../../server/lib/chains/dymension";
 import db from "../../../server/db/database";
+import { nim } from "../../../server/lib/chains/nim";
+import { base } from "../../../server/lib/chains/base";
 
 export const GET: APIRoute = async ({ params, request }) => {
   const wallet = params.wallet?.toString().toLocaleLowerCase();
@@ -45,6 +47,12 @@ export const GET: APIRoute = async ({ params, request }) => {
           break;
         case 1100:
           rh = new RpcHandler(dymension);
+          break;
+        case 1122:
+          rh = new RpcHandler(nim);
+          break;
+        case 8453:
+          rh = new RpcHandler(base);
       }
 
       if (rh == null) continue;

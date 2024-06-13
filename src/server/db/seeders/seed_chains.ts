@@ -1,5 +1,7 @@
+import { base } from "../../lib/chains/base";
 import { dymension } from "../../lib/chains/dymension";
 import { ethereum } from "../../lib/chains/ethereum";
+import { nim } from "../../lib/chains/nim";
 import { optimism } from "../../lib/chains/optimism";
 import { polygon } from "../../lib/chains/polygon";
 import type { Rpc } from "../../lib/RpcHandler";
@@ -31,5 +33,7 @@ const seed_chains = async () => {
   await insertChain(polygon);
   await insertChain(optimism);
   await insertChain(dymension);
+  await insertChain(base);
+  await insertChain(nim);
 };
 export default seed_chains;

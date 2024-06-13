@@ -5,7 +5,14 @@ import seed_accounts from "../../server/db/seeders/seed_accounts";
 import seed_chains from "../../server/db/seeders/seed_chains";
 
 export const GET: APIRoute = async ({ params, request }) => {
-  const chains = ["dymension", "ethereum", "optimism", "polygon"];
+  const chains = [
+    "dymension",
+    "ethereum",
+    "optimism",
+    "polygon",
+    "nim",
+    "base",
+  ];
 
   let tokens: Array<IToken> = [];
 

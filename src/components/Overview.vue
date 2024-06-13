@@ -2,7 +2,7 @@
   <div
     class="w-fit mx-auto flex flex-col gap-1 place-content-center place-items-center"
   >
-    <Connect />
+    <ConnectWithWallet />
     <div v-if="pending && !refreshing">
       <Loader />
     </div>
@@ -182,6 +182,7 @@
 import Terminal from "./Terminal.vue";
 import Asset from "./Asset.vue";
 import Connect from "./Connect.vue";
+import ConnectWithWallet from "./ConnectWithWallet.vue";
 import Loader from "./Loader.vue";
 
 import { connected } from "../stores/connected";

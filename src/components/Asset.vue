@@ -31,7 +31,7 @@
           <img
             v-else
             :alt="data.chain.id + '-icon'"
-            class="w-4 object-cover"
+            class="w-4 object-cover rounded-full overflow-hidden"
             :src="data.chain.iconURI"
           />
           <div v-if="refreshing" class="skeleton w-6 h-4"></div>

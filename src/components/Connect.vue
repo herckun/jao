@@ -45,4 +45,3 @@ onMounted(() => {
     <w3m-button />
   </div>
 </template>
-../stores/connected
