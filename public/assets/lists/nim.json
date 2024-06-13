@@ -1,0 +1,9 @@
+[
+    {
+      "name": "NIM",
+      "chainId": 1122,
+      "contract": "NIM",
+      "decimals": 18,
+      "coingeckoId":"nim-network"
+    }
+]
